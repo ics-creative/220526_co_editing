@@ -1,6 +1,9 @@
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
-import "quill/dist/quill.snow.css"
+import "quill/dist/quill.snow.css";
+import * as Y from "yjs";
+import { WebsocketProvider } from "y-websocket";
+import { QuillBinding } from "y-quill";
 
 Quill.register("modules/cursors", QuillCursors);
 
@@ -29,9 +32,25 @@ const init = () => {
     theme: "snow", // 'bubble' is also great
   });
 
+  const doc = new Y.Doc();
+  const wsProvider = new WebsocketProvider(
+    "ws://localhost:1234",
+    "my-room-name",
+    doc
+  );
+  wsProvider.on("status", (event: { status: string }) => {
+    console.log(event.status);
+  });
+
+  // Define a shared text type on the document
+  const ytext = doc.getText("quill");
+
+  // "Bind" the quill editor to a Yjs text type.
+  new QuillBinding(ytext, quill, wsProvider.awareness);
+
   window.addEventListener("blur", () => {
     quill.blur();
   });
 };
 
-init()
+init();
