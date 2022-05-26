@@ -1,5 +1,7 @@
 # 220526_co_editing
 
+QuillとYjsを用いた共同編集エディターのデモです
+
 ## 起動方法
 
 1. ターミナル上で`HOST=localhost PORT=1234 npx y-websocket`を実行し、サーバーを起動する
