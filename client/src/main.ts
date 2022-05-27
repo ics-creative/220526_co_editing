@@ -1,5 +1,6 @@
 import Quill from "quill";
 import QuillCursors from "quill-cursors";
+// Quillのスタイルテーマを適用
 import "quill/dist/quill.snow.css";
 import * as Y from "yjs";
 import { WebsocketProvider } from "y-websocket";
